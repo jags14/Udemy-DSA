@@ -16,7 +16,7 @@ class LinkedList {
         if(!this.head){
             this.head = newNode;
             this.tail = this.head;
-            this.next = null;
+            // this.next = null;
         } else {
             newNode.next = this.head;
             this.head = newNode;
@@ -65,5 +65,40 @@ class LinkedList {
         this.size--;
         return currentHead;
         
+    }
+
+    getNode(n){
+        if(n < 0 || n >= this.size) return null;
+        let currentNode = this.head;
+        for(let counter = 0; counter<n; counter++){
+            currentNode = currentNode.next;
+        }
+        return currentNode;
+    }
+
+    setNode(n, val) {
+        const currentNode = this.getNode(n);
+        if(!currentNode) return false;
+        if(currentNode){
+            currentNode.data = val;
+            return true;
+        }
+    }
+
+    insert(n, val) {
+        if( n < 0 || n > this.size) return false;
+        if(n === 0){
+            return !!this.addFirst(val);
+        } else if(n === this.size){
+            return !!this.push(val);
+        } else {
+            const newNode = new Node(val);
+            const preNode = this.getNode(n-1);
+            const nextNode = this.getNode(n);
+            preNode.next = newNode;
+            newNode.next = nextNode;
+        }
+        this.size++;
+        return true;
     }
 }
