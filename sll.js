@@ -101,4 +101,22 @@ class LinkedList {
         this.size++;
         return true;
     }
+
+    remove(n) {
+        if ( n < 0 || n > this.size) return undefined;
+        if ( n === 0) {
+            return this.shift();
+        } else if( n === this.size -1) {
+            return this.pop();
+        } else {
+            //const givenNode = this.getNode(n);
+            const prevNode = this.getNode(n-1);
+            const removedNode = prevNode.next;
+            // const afterNode = this.getNode(n +1)
+            const afterNode = removedNode.next;
+           // givenNode.next = null;
+            prevNode.next = afterNode;
+            return removedNode;
+        }
+    }
 }
