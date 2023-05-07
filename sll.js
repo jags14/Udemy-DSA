@@ -11,6 +11,8 @@ class LinkedList {
         this.tail = null;
         this.size = 0;
     }
+    
+    // add a node at the beginning of the linkedlist
     addFirst(val) {
         const newNode = new Node(val);
         if(!this.head){

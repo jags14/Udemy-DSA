@@ -7,58 +7,59 @@ class Node {
 }
 
 class DoublyLinkedList {
-    constructor () {
+    constructor(){
         this.head = null;
         this.tail = null;
         this.length = 0;
     }
 
-    push(val) {
-        const newNode = new Node(val);
-        if(!this.head) {
-            this.head = newNode;
-            this.tail = newNode;
-            
+    push(val){
+        const node = new Node(val);
+        if(!this.length) {
+            this.head = node;
+            this.tail = node; 
         } else {
-            this.tail.next = newNode;
-            newNode.prev = this.tail;
-            this.tail = newNode;
+          this.tail.next = node;
+          node.prev = this.tail;
+          this.tail = node;
         }
-        this.length += 1;
+        this.length++;
         return this;
     }
 
-    pop() {
-        if(!this.tail) return undefined;
-        const removedNode = this.tail;
-        if(this.length === 1) {
-            
+    // DLL.pop() pops the last element and returns it
+    pop(){
+        if(!this.length) return undefined;
+        if(this.length === 1){
+            const poppedNode = this.head;
             this.head = null;
             this.tail = null;
+            this.length--;
+            return poppedNode;
         } else {
-            const prevNode = removedNode.prev;
-            removedNode.prev = null;
-            prevNode.next = null;
-            this.tail = prevNode;
-             
+            const poppedNode = this.tail;
+            const newTail = this.tail.prev;
+            this.tail.next = null;
+            this.tail.prev = null;
+            newTail.next = this.head;
+            this.tail = newTail;
+            this.length--;
+            return poppedNode;
         }
-        this.length --;
-        return removedNode;
     }
-
-    shift() {
-        if(!this.head) return undefined;
-        const removedNode = this.head;
-        if(this.length === 1) {
+    // remove the head
+    shift(){
+        if(!this.length) return undefined;
+        const oldHead = this.head;
+        if(this.length === 1){
             this.head = null;
             this.tail = null;
-        } else {
-            const nextNode = removedNode.next;
-            removedNode.next = null;
-            nextNode.prev = null;
-            this.head = nextNode;
         }
+        this.head = this.head.next;
+        this.head.prev = null;
+        oldHead.next = null;
         this.length--;
-        return removedNode;
+        return oldHead;
+
     }
 }
